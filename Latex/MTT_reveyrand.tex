@@ -1,40 +1,13 @@
-%
-% IEEE Transactions on Microwave Theory and Techniques example
-% Tibault Reveyrand - http://www.microwave.fr
-%
-% http://www.microwave.fr/LaTeX.html
-% ---------------------------------------
-
-
-
-% ================================================
-% Please HIGHLIGHT the new inputs such like this :
-% Text :
-%  \hl{comment}
-% Aligned Eq. 
-% \begin{shaded}
-% \end{shaded}
-% ================================================
-
-
 
 \documentclass[journal]{IEEEtran}
-
-%\usepackage[retainorgcmds]{IEEEtrantools}
-%\usepackage{bibentry}  
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
-\usepackage{xcolor,soul,framed} %,caption
-
+\usepackage{xcolor,soul,framed} 
 \colorlet{shadecolor}{yellow}
-% \usepackage{color,soul}
 \usepackage[pdftex]{graphicx}
-\graphicspath{{../pdf/}{../jpeg/}{../images/}}
+\graphicspath{{../pdf/}{../images/}}
 \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
-
 \usepackage[cmex10]{amsmath}
-%Mathabx do not work on ScribTex => Removed
-%\usepackage{mathabx}
 \usepackage{array}
 \usepackage{mdwmath}
 \usepackage{mdwtab}
@@ -56,12 +29,13 @@
       Miguel~Rojas,~\IEEEmembership{Student Member,~IEEE,}
       y~Cristian~Medina\'c,~\IEEEmembership{Student Member,~IEEE}% <-this % stops a space
 
-  \thanks{Manuscript received July 10, 2012. \hl{This paper is an expanded paper from the IEEE MTT-S Int. Microwave Symposium held on June 17-22, 2012 in Montreal, Canada.} This work was funded in part by the Office of Naval Research under the Defense Advanced Research Projects Agency (DARPA) Microscale Power Conversion (MPC) Program under Grant N00014-11-1-0931, and in part by the Advanced Research Projects Agency-Energy (ARPA-E), U.S. Department of Energy, under Award Number DE-AR0000216.}
-  \thanks{M. Roberg is with TriQuint Semiconductor, 500 West Renner Road Richardson, TX 75080 USA (e-mail: michael.roberg@tqs.com).}% <-this % stops a space
-  \thanks{T. Reveyrand is with the XLIM Laboratory, UMR 7252, University of Limoges, 87060 Limoges, France (e-mail: tibault.reveyrand@xlim.fr).}%
-  \thanks{I. Ramos and Z. Popovic are with the Department of Electrical, Computer and Energy Engineering, University of Colorado, Boulder, CO, 80309-0425 USA (e-mail: ignacio.ramos@colorado.edu; zoya.popovic@colorado.edu).}% <-this % stops a space
-  \thanks{E. Falkenstein is with Qualcomm Inc., 6150 Lookout Road
-Boulder, CO 80301 USA (e-mail: erez.falkenstein@gmail.com).}}  
+%   \thanks{Manuscript received July 10, 2012. \hl{This paper is an expanded paper from the IEEE MTT-S Int. Microwave Symposium held on June 17-22, 2012 in Montreal, Canada.} This work was funded in part by the Office of Naval Research under the Defense Advanced Research Projects Agency (DARPA) Microscale Power Conversion (MPC) Program under Grant N00014-11-1-0931, and in part by the Advanced Research Projects Agency-Energy (ARPA-E), U.S. Department of Energy, under Award Number DE-AR0000216.}
+%   \thanks{M. Roberg is with TriQuint Semiconductor, 500 West Renner Road Richardson, TX 75080 USA (e-mail: michael.roberg@tqs.com).}% <-this % stops a space
+%   \thanks{T. Reveyrand is with the XLIM Laboratory, UMR 7252, University of Limoges, 87060 Limoges, France (e-mail: tibault.reveyrand@xlim.fr).}%
+%   \thanks{I. Ramos and Z. Popovic are with the Department of Electrical, Computer and Energy Engineering, University of Colorado, Boulder, CO, 80309-0425 USA (e-mail: ignacio.ramos@colorado.edu; zoya.popovic@colorado.edu).}% <-this % stops a space
+%   \thanks{E. Falkenstein is with Qualcomm Inc., 6150 Lookout Road
+% Boulder, CO 80301 USA (e-mail: erez.falkenstein@gmail.com).}
+}  
 
 
 % The paper headers
@@ -77,7 +51,6 @@ Boulder, CO 80301 USA (e-mail: erez.falkenstein@gmail.com).}}
 % === ABSTRACT ====================================================================
 % =================================================================================
 \begin{abstract}
-resumen
 \end{abstract}
 
 
@@ -94,126 +67,158 @@ resumen
 
 \IEEEPARstart{T}{he} 
 %=================================================================================
-\section{Análisis para el diseño del Reloj Digital}
-\subsection{Señal de reloj a través del temporizador 555.}
-En la figura \ref{circuit_diagram} se muestra un generador de frecuencia de $1Hz$ utilizando el temporizador 555 el cual es cableado como un multivibrador Aestable.  Los pulsos de salida se pueden visualizar a través de un LED; este circuito no requiere ninguna señal externa para su funcionamiento.   Se puede calcular el valor de la frecuencia, utilizando la respectiva formula que se puede encontrar en el datasheet. Se tiene una frecuencia aproximada de $1Hz$.
+\section{Desarrollo}
+Materiales
+\begin{enumerate}
+    \item Esquematico
+    \begin{itemize}
+        \item 6 74LS90
+        \item 6 7447
+        \item 6 displays 7 segmentos (anodo camún)
+        \item 1 7408
+        \item 2 resistencia de $10k\Omega$
+        \item 1 resistencia de $220\Omega$
+        \item 1 capacitor de $47uF$
+        \item 1 capacitor de $10nF$
+        \item 1 diodo led
+    \end{itemize}
+    \item PCB
+    \begin{itemize}
+        \item 6 74LS90
+        \item 6 7447
+        \item 6 jumper de 8 pines
+        \item 1 7408
+        \item 2 resistencia de $10k\Omega$
+        \item 1 resistencia de $220\Omega$
+        \item 1 capacitor de $47uF$
+        \item 1 capacitor de $10nF$
+        \item 1 diodo led
+        \item 1 jumper de 2 pines
+    \end{itemize}
+\end{enumerate}
 
-% =======
-% FIG. 01
-% =======
-\begin{figure}[h]
-    \begin{center}
+
+\subsection{Análisis para el diseño del Reloj Digital}
+\subsubsection{Señal de reloj a través del temporizador 555 (modo astable).}
+En la figura \ref{circuit_diagram}, se muestra un generador de frecuencia de $1Hz$ utilizando el temporizador 555 (timer 555) el cual es cableado en modo multivibrador astable. Para poder visualizar los pulsos de salida se conectó un diodo led.
+
+\begin{figure}[htb]
+    \centering
     \includegraphics[width=8cm, height=5.5cm]{images/image1.png}
-    \newline
-    \caption{Circuito LM 555 de 1 segundo $\left ( 1Hz \right )$}\label{circuit_diagram}
-    \end{center}
+    \caption{Circuito LM 555 de $1Hz$ (1 seg.) $\left ( 1Hz \right )$}
+    \label{circuit_diagram}
 \end{figure}
-
+Se puede calcular el valor de la frecuencia, utilizando la respectiva formula que se puede encontrar en su respectivo datasheet, dicha fórmula esta es:
+\[
+    f=\frac{1.44}{\left ( R_{1}+2R_{2}C_{1} \right )}  
+\]
+Aplicando esta a nuestro circuito tenemos:
 \[\begin{array}{crl}
-    f=\frac{1.44}{\left ( R_{1}+2R_{2}C_{1} \right )}
+    f=\frac{1.44}{\left ( 10k+20k \right ) 47uF}
     \\
-    \frac{1.44}{\left ( 10k+20k \right ) 47uF}
+    f=\frac{1.44}{\left ( 30k \right ) 47uF}
     \\
-    \frac{1.44}{\left ( 30k \right ) 47uF}
+    f=\frac{1.44}{1.41}
     \\
-    \frac{1.44}{1.41}=1.02Hz   
+    f=1.02Hz   
 \end{array}\]
 El intervalo de tiempo en que la salida está a nivel ALTO se define según:
-\[\begin{array}{crl}
+\[
     t_{H}=0.7\left ( R_{1}+R_{2} \right )C_{1}
-    \\
-    0.7\left (10k+10k \right )47uF
-    \\
-    0.7\left ( 20k \right )47uF=0.658 seg
-\end{array}\]
-El intervalo de tiempo en que la salida está a nivel BAJO se define según: 
+\]
+Aplicando esta a nuestro circuito tenemos:
 \[\begin{array}{crl}
+    t_{H}=0.7\left (10k+10k \right )47uF
+    \\
+    t_{H}=0.7\left ( 20k \right )47uF
+    \\
+    t_{H}=0.658 seg
+\end{array}\]
+El intervalo de tiempo en que la salida está a nivel BAJO se define según:
+\[
     t_{L}=0.7R_{2}C_{1}
+\] 
+Aplicando esta a nuestro circuito tenemos:
+\[\begin{array}{crl}
+    t_{L}=0.7\left ( 10k \right )47uF
     \\ 
-    0.7\left ( 10k \right )47uF=0.329 seg
+    t_{L}=0.329 seg
 \end{array}\]
 El periodo $T$, de la señal de salida es la suma de $t_{H}$   y  $t_{L}$.  Esto es el reciproco de la frecuencia:
 \[\begin{array}{crl}
     T=t_{H}+t_{L}
     \\
-    0.658seg+0.329seg=0.987seg
+    T=0.658seg+0.329seg
+    \\
+    T=0.987seg
 \end{array}\]
 Finalmente, el ciclo de trabajo es:
 \[\begin{array}{crl}
-    Ciclo~de~trabajo=\frac{t_{H}}{T}
+    CT=\frac{t_{H}}{T}
     \\
-    \frac{t_{H}}{t_{H}+t_{L}}
+    CT=\frac{t_{H}}{t_{H}+t_{L}}
     \\
-    \frac{0.658seg}{0.658seg+0.329seg}
+    CT=\frac{0.658seg}{0.658seg+0.329seg}
     \\
-    0.667*100\%=66.67\%
-\end{array}\]
-Una vez realizados los cálculos de frecuencia, periodo y ciclo de trabajo; se implementa el circuito en el simulador PROTEUS y a través de la utilización de un osciloscopio se puede observar la señal de salida del  temporizador, que se presenta como una señal no ideal debido al efecto de carga y descarga de los capacitores; pero que se puede utilizar como señal de reloj debido a que si es posible diferencia los flancos de subida y de bajada de cada uno de los pulsos.
-Se debe notar adicionalmente que el ciclo de trabajo es del $66.67\%$, sin embargo esto no representara  inconvenientes  en  el  funcionamiento  del  reloj  digital,  ya  que  el  tiempo  o periodo  entre  las  transiciones  positivas  o  negativas  siempre  será  de  1  segundo aproximadamente $\left ( 0.987 \right )$, como se puede evidenciar en la figura \ref{osiloscop_sim}
-\begin{figure}[h]
-    \begin{center}
-    \includegraphics[width=8cm]{images/image3.png}
-    \newline
-    \caption{Datasheet 74ls90: Logic Diagram/Connection Diagram}\label{osiloscop_sim}
-    \end{center}
-\end{figure}
+    CT=0.667*100\%
+    \\
+    C=66.67\%
+\end{array}
+\]
+Una vez realizados los cálculos de frecuencia, periodo y ciclo de trabajo; se implementó el circuito en el simulador PROTEUS y a través de la utilización de un osciloscopio se puede observar la señal de salida del  temporizador, que se presenta como una señal no ideal debido al efecto de carga y descarga de los capacitores; pero que se puede utilizar como señal de reloj debido a que si es posible diferencia los flancos de subida y de bajada de cada uno de los pulsos.
+Se debe notar adicionalmente que el ciclo de trabajo es del $66.67\%$, sin embargo esto no representara  inconvenientes  en  el  funcionamiento  del  reloj  digital,  ya  que  el  tiempo  o periodo  entre  las  transiciones  positivas  o  negativas  siempre  será  de  1  segundo aproximadamente $\left ( 0.987 \right )$, como se puede evidenciar en la figura \ref{osiloscop_sim}.
 
-\subsection{Contador MOD10 y MOD6}
-Para contador base que se utiliza para realizar el reloj digital de 24 horas es el 74LS90 que puede ser configurado como: MOD2, MOD3, MOD4, MOD5, MOD6, MOD7, MOD8, MOD9 y MOD10.
-\begin{figure}[h]
-    \begin{center}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=8cm]{images/image3.png}
+    \caption{Datasheet 74ls90: Logic Diagram/Connection Diagram}
+    \label{osiloscop_sim}
+\end{figure}
+\subsubsection{Contador MOD10 y MOD6}
+Para el contador base se utiliza el reloj digital de 24 horas se utiliza el ircuito integrado 74LS90 que puede ser configurado como: MOD2, MOD3, MOD4, MOD5, MOD6, MOD7,MOD8, MOD9 y MOD10.
+\begin{figure}[htb]
+    \centering
     \includegraphics[width=8cm]{images/image2.png}
-    \newline
-    \caption{Datasheet 74ls90: Logic Diagram/Connection Diagram}\label{datasheet_diagram}
-    \end{center}
+    \caption{Datasheet 74ls90: Logic Diagram/Connection Diagram}
+    \label{datasheet_diagram}
 \end{figure}
 El 74LS90 es un contador de décadas síncrono, cuya configuración como MOD10 se muestra en la figura \ref{cont_MOD10}.
-\begin{figure}[h]
-    \begin{center}
+\begin{figure}[htb]
+    \centering
     \includegraphics[width=8cm]{images/image4.png}
-    \newline
-    \caption{Contador MOD10 con 74LS90}\label{cont_MOD10}
-    \end{center}
+    \caption{Contador MOD10 con 74LS90}
+    \label{cont_MOD10}
 \end{figure}
-Las  entradas  R0(1),  R0(2),  R9(1)  y  R9(2),  son  utilizadas  como  señales  de  PRESET  y CLEAR para cada uno de los Flip Flops del 74LS90; guiadas a través de dos compuertas NAND. En el datasheet estas entradas son etiquetadas como MS1, MS2, MR1 y MR2. 
+Las  entradas  $R0(1),  R0(2),  R9(1)$ y $R9(2)$  son  utilizadas  como  señales  de  PRESET  y CLEAR para cada uno de los Flip Flops del 74LS90; guiadas a través de dos compuertas NAND. En el datasheet estas entradas son etiquetadas como MS1, MS2, MR1 y MR2. 
 \newline
-El contador MOD6 se obtiene con la configuración de la Ilustración 5 donde las entradas R0(1) y R0(2) harán que las salidas de los Flip flops se hagan cero cuando se presente en la salida el valor binario 0110 y de esta forma el conteo solo sea desde cero hasta cinco.
-\begin{figure}[h]
-    \begin{center}
+El contador MOD6 se obtiene con la configuración de la figura \ref{cont_MOD6} donde las entradas $R0(1)$ y $R0(2)$ harán que las salidas de los Flip flops se hagan cero cuando se presente en la salida el valor binario 0110 y de esta forma el conteo solo sea desde cero hasta cinco.
+\begin{figure}[htb]
+    \centering
     \includegraphics[width=8cm]{images/image5.png}
-    \newline
-    \caption{Contador MOD6 con 74LS90}\label{cont_MOD6}
-    \end{center}
+    \caption{Contador MOD6 con 74LS90}
+    \label{cont_MOD6}
 \end{figure}
-\subsection{Diseño de reloj digital}
-El diseño del reloj inicia con el conteo de los segundos, el cual tiene unidades y decenas. Las unidades de los segundos siempre tomaran valores entre 0 y 9; y cada vez que las unidades  tomen  el  valor  de  9  en  la  siguiente  transición  de  reloj  deberá  volver  a  0  y aumentar el contador de las decenas; es decir por cada vez que el contador MOD10 pase por sus 10 estados se deberá incrementar en uno el contador MOD6.  
+\subsubsection{Diseño de reloj digital}
+El diseño del reloj inicia con el conteo de los segundos, el cual tiene unidades y decenas. Las unidades de los segundos siempre tomaran valores entre 0 y 9; y cada vez que las unidades tomen  el  valor  de 9 en la siguiente  transición de reloj deberá volver a 0 y aumentar el contador de las decenas; es decir por cada vez que el contador MOD10 pase por sus 10 estados se deberá incrementar en uno el contador MOD6.  
 \newline
-Para conseguir esto de utiliza el bit más significativo del contador MOD10 como señal de reloj para el contador MOD6 y de esta forma obtener el conteo desde 00 hasta 59. 
-\begin{figure}[h]
-    \begin{center}
-    \includegraphics[width=8cm]{images/image6.png}
-    \newline
-    \caption{Contador de 00 a 59}\label{cont_59}
-    \end{center}
+Para conseguir esto de utiliza el bit más significativo del contador MOD10 como señal de reloj para el contador MOD6 y de esta forma obtener el conteo desde 00 hasta 59.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=7cm]{images/image6.png}
+    \caption{Contador de 00 a 59}
+    \label{cont_59}
 \end{figure}
+\newline
 La lógica para realizar el conteo de los minutos es la misma, teniendo en consideración que cada vez que el segundero tome el valor de 59 en el siguiente ciclo de reloj los dos contadores de  los  segundos  deberán  volver  a  cero  y  el  contador  de  las  unidades de  los minutos deberá incrementar su valor.
-\begin{figure}[h]
-    \begin{center}
+\newpage
+\begin{figure}[htb]
+    \centering
     \includegraphics[width=8cm]{images/image7.png}
-    \newline
-    \caption{Contador segundos y minutos}\label{cont_hs}
-    \end{center}
+    \caption{Contador minutos y segundos}
+    \label{cont_hs}
 \end{figure}
-Finalmente para contar las horas, se debe tener en cuenta que el reloj iniciará en 00 y terminará en 23; es decir el contador de las unidades y las decenas volverán a su estado inicial de 00 cuando se presente la condición que se muestra en la Tabla 1. A partir de esta condición que se presentará por un corto periodo de tiempo se reinician los contadores con el uso de una compuerta AND cuyas entradas serán:
-
-\begin{figure}[h]
-    \begin{center}
-    \includegraphics[width=8cm]{images/image8.png}
-    \newline
-    \caption{Contador de 24horas}\label{cont_24}
-    \end{center}
-\end{figure}
-\begin{table}[]
+Finalmente para contar las horas, se debe tener en cuenta que el reloj iniciará en 00 y terminará en 23; es decir el contador de las unidades y las decenas volverán a su estado inicial de 00 cuando se presente la condición que se muestra en la Tabla \ref{tab_reloj}. A partir de esta condición que se presentará por un corto periodo de tiempo se reinician los contadores con el uso de una compuerta AND cuyas entradas serán:
+\begin{table}[htb]
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
     \hline
     \multicolumn{9}{|c|}{CONTADOR DE HORAS} \\ \hline
@@ -251,20 +256,51 @@ Finalmente para contar las horas, se debe tener en cuenta que el reloj iniciará
     \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} \\ \hline
     \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} & \textbf{.} \\ \hline
     \end{tabular}
-    \caption{Tabla de Verdad de salida de contador de horas}\label{osiloscop_sim}
+    \caption{Tabla de Verdad de salida de contador de horas}
+    \label{tab_reloj}
     \end{table}
-
-    \begin{figure}[h]
-        \begin{center}
-        \includegraphics[width=8cm]{images/image9.png}
-        \newline
-        \caption{Diseño Final de Reloj Digital}\label{Diseño_final}
-        \end{center}
-    \end{figure}
+    \newline
+    
+El circuito para el contador de horas sera:
+\newline
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=7cm]{images/image8.png}
+    \caption{Contador de 24horas}\label{cont_24}
+\end{figure}
+\newline
+El diseño esquemático del circuito final es el siguiente:
+\newline
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=8cm]{images/image11.png}
+    \caption{Diseño Final de Reloj Digital}\label{Diseno_final}
+\end{figure}
+Para realizar el circuito PCB, se reemplazo los displays por conectores "Header", que permitiran conectar cada display  a travez de jumpers, esto permitira hara posible reemplazar y colocar los displays de una manera sencilla.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=8cm]{images/image10.png}
+    \caption{Diseño Final de Reloj Digital}\label{Diseno_final_toPCB}
+\end{figure}
+Luego del diseño esquematico, se realizo el diseño PCB; Se tomo en cuenta el ancho de las pistas, para VCC el tamaño de la pista es de 20th, y para las demas de 10th, también se tomo en cuenta el plano de masa para evitar impedancia y ruido.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{pdf/RD_b.pdf}\\
+    \caption{Diseño PCB bottom}
+    \label{PCB_B}
+\end{figure} 
+También se coloco pistas en el plano top, por la complijejidad de algunas coneciiones.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{pdf/RD_t.pdf}\\
+    \caption{Diseño PCB top}
+    \label{PCB_T}
+\end{figure}
 \section{Conclusion}
 
 
-\section*{Acknowledgment}
+\section*{Agradecimientos}
+\section*{Referencias}
 
 
 %Dr. Reveryrand would like to acknowledge the funding by XLIM, Limoges, France. 
